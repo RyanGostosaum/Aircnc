@@ -1,23 +1,27 @@
 import * as express from "express";
 
 import Auth from '../config/auth';
-import UserController from '../controllers/userController';
-
+import SessionController from '../controllers/SessionController';
+import SpotController from '../controllers/SpotController'
+import uploads from '../config/uploads'
 
 export class Routes {
     private router: express.Router;
 
     public routes(app): void {
+
         app.route("/").get((req, res) => {
             res.send({ 'result': 'version 0.0.2' })
         });
 
-        app.route("/api/v1/users")
-            .get(Auth.validate, UserController.get)
-            .post(Auth.validate, UserController.create);
+        app.route("/api/v1/session")
+            .get(Auth.validate, SessionController.get)
+            .post(SessionController.create);
 
-        app.route("/api/v1/users/:id").get(Auth.validate, UserController.getById);
-        app.route("/api/v1/users/:id").put(Auth.validate, UserController.update);
-        app.route("/api/v1/users/:id").delete(Auth.validate, UserController.delete);
+        app.route("/api/v1/session/:id").get(Auth.validate, SessionController.getById);
+        app.route("/api/v1/session/:id").put(Auth.validate, SessionController.update);
+        app.route("/api/v1/session/:id").delete(Auth.validate, SessionController.delete);
+
+        app.post("/api/v1/spots", uploads.single('thumbnail'), SpotController.create)
     }
 }

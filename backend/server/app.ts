@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as morgan from "morgan";
-import * as bodyParser from "body-parser";
+import * as express from "body-parser";
 import DataBase from './config/db';
 import * as cors from "cors";
 
@@ -45,8 +45,7 @@ class App {
 
   middleware() {
     this.app.use(morgan("dev"));
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(express.json());
   }
 }
 export default new App();

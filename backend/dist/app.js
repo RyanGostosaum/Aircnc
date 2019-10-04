@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
 const db_1 = require("./config/db");
 const cors = require("cors");
 const routes_1 = require("./routes/routes");
@@ -34,8 +33,7 @@ class App {
     }
     middleware() {
         this.app.use(morgan("dev"));
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(express.json());
     }
 }
 exports.default = new App();
