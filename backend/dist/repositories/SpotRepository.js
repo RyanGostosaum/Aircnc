@@ -10,9 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const SpotSchema_1 = require("../schemas/SpotSchema");
+const SessionSchema_1 = require("../schemas/SessionSchema");
 class SpotRepository {
     constructor() {
         this.model = mongoose.model('', SpotSchema_1.default);
+        this.session = mongoose.model('Session', SessionSchema_1.default);
     }
     getAll() {
         return this.model.find({});
@@ -20,9 +22,23 @@ class SpotRepository {
     getById(_id) {
         return this.model.findById(_id);
     }
-    create(spot) {
+    create(req) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.model.create(spot);
+            const { price, techs, company } = req.body;
+            const { filename } = req.file;
+            const { user_id } = req.headers;
+            const user = yield this.session.findById(user_id);
+            if (!user) {
+                return 'user not found';
+            }
+            const spot = yield this.model.create({
+                user: user_id,
+                thumbnail: filename,
+                company,
+                price,
+                techs: techs.split(',').map(tech => tech.trim())
+            });
+            return spot;
         });
     }
     update(_id, spot) {

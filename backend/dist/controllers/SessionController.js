@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const SessionRepository_1 = require("../repositories/SessionRepository");
 const httpStatus = require("http-status");
 const sendReponse = function (res, statusCode, data) {
-    res.status(statusCode).json({ 'result': data });
+    res.status(statusCode).json(data);
 };
 class SessionController {
     constructor() { }

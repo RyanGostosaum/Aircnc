@@ -3,7 +3,7 @@ import * as httpStatus from 'http-status';
 
 
 const sendReponse = function (res, statusCode, data) {
-  res.status(statusCode).json({ 'result': data })
+  res.status(statusCode).json(data)
 }
 
 class SessionController {

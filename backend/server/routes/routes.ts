@@ -14,7 +14,7 @@ export class Routes {
             res.send({ 'result': 'version 0.0.2' })
         });
 
-        app.route("/api/v1/session")
+        app.route("/sessions")
             .get(Auth.validate, SessionController.get)
             .post(SessionController.create);
 

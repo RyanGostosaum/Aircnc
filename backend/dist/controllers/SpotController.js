@@ -26,10 +26,8 @@ class SpotController {
         }
     }
     create(req, res) {
-        console.log(req.body);
-        console.log(req.files);
         SpotRepository_1.default
-            .create(req.body)
+            .create(req)
             .then(menus => sendReponse(res, httpStatus.OK, menus))
             .catch(err => console.error.bind(console, `Error ${err}`));
     }

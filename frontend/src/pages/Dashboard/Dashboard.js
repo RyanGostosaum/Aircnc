@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import api from "../../service/api";
-import './index.css'
-import socketio from 'socket.io-client'
+import './index.css';
+import socketio from 'socket.io-client';
 
 export default function Dashboard() {
   const [spots, setSpots] = useState([]);

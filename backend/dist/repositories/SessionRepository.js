@@ -22,7 +22,8 @@ class SessionRepository {
     }
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExists = yield this.model.findOne({ 'email': user.email });
+            const { email } = user;
+            let userExists = yield this.model.findOne({ 'email': email });
             if (!userExists) {
                 return this.model.create(user);
             }

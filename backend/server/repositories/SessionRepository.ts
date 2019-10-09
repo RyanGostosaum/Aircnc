@@ -17,7 +17,8 @@ class SessionRepository {
   }
 
   async create(user) {
-    const userExists = await this.model.findOne({ 'email': user.email })
+    const { email } = user
+    let userExists = await this.model.findOne({ 'email': email })
     if (!userExists) {
       return this.model.create(user)
     }

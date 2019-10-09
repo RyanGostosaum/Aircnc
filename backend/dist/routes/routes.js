@@ -9,7 +9,7 @@ class Routes {
         app.route("/").get((req, res) => {
             res.send({ 'result': 'version 0.0.2' });
         });
-        app.route("/api/v1/session")
+        app.route("/sessions")
             .get(auth_1.default.validate, SessionController_1.default.get)
             .post(SessionController_1.default.create);
         app.route("/api/v1/session/:id").get(auth_1.default.validate, SessionController_1.default.getById);
