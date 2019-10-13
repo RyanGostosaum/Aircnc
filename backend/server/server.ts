@@ -2,7 +2,22 @@ import App from "./app";
 
 import { appConfig } from './config/configs'
 
-App.app.listen(appConfig.port, () => {
+import * as socketio from "socket.io";
+import { Server } from 'http'
+
+let connectedUsers = {}
+
+let http = new Server(App.app);
+
+let io = socketio(http);
+
+App.app.use((req, res, next) => {
+  req.io = io;
+  req.connectedUsers = connectedUsers;
+  return next();
+})
+
+http.listen(appConfig.port, () => {
   console.log(`server running in" + ${appConfig.port}`);
 });
 

@@ -25,6 +25,8 @@ class App {
         };
         this.app.use(cors(options));
     }
+    sockets() {
+    }
     dataBaseConnection() {
         this.database.createConnection();
     }

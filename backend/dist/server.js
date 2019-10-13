@@ -2,7 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./app");
 const configs_1 = require("./config/configs");
-app_1.default.app.listen(configs_1.appConfig.port, () => {
+const socketio = require("socket.io");
+const http_1 = require("http");
+let connectedUsers = {};
+let http = new http_1.Server(app_1.default.app);
+let io = socketio(http);
+app_1.default.app.use((req, res, next) => {
+    req.io = io;
+    req.connectedUsers = connectedUsers;
+    return next();
+});
+http.listen(configs_1.appConfig.port, () => {
     console.log(`server running in" + ${configs_1.appConfig.port}`);
 });
 process.once('SIGUSR2', () => app_1.default.closedataBaseConnection('nodemon restart', () => process.kill(process.pid, 'SIGUSR2')));
