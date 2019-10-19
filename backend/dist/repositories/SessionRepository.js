@@ -18,9 +18,6 @@ class SessionRepository {
     getAll() {
         return this.model.find({});
     }
-    getById(_id) {
-        return this.model.findById(_id);
-    }
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = user;
@@ -29,10 +26,6 @@ class SessionRepository {
                 return this.model.create(user);
             }
         });
-    }
-    update(_id, user) {
-        const updateUser = Object.assign({}, user);
-        return this.model.findByIdAndUpdate(_id, updateUser, { new: true });
     }
     delete(_id) {
         return this.model.findByIdAndRemove(_id);

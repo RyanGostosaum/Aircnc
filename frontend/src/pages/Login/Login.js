@@ -35,7 +35,7 @@ export default function Login({ history }) {
                     onChange={handleEmailChange}
 
                 />
-                <button className="btn" type="submit">Entrar</button>
+                <button className="btn" type="submit" >Entrar</button>
             </form>
         </>
 

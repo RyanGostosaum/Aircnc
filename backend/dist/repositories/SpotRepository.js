@@ -14,14 +14,8 @@ const SpotSchema_1 = require("../schemas/SpotSchema");
 const SessionSchema_1 = require("../schemas/SessionSchema");
 class SpotRepository {
     constructor() {
-        this.model = mongoose.model('', SpotSchema_1.default);
+        this.model = mongoose.model('Spot', SpotSchema_1.default);
         this.session = mongoose.model('Session', SessionSchema_1.default);
-    }
-    getAll() {
-        return this.model.find({});
-    }
-    getById(_id) {
-        return this.model.findById(_id);
     }
     create(req) {
         return __awaiter(this, void 0, void 0, function* () {

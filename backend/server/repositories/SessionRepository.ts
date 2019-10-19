@@ -12,21 +12,12 @@ class SessionRepository {
     return this.model.find({});
   }
 
-  getById(_id) {
-    return this.model.findById(_id);
-  }
-
   async create(user) {
     const { email } = user
     let userExists = await this.model.findOne({ 'email': email })
     if (!userExists) {
       return this.model.create(user)
     }
-  }
-
-  update(_id, user) {
-    const updateUser = (<any>Object).assign({}, user);
-    return this.model.findByIdAndUpdate(_id, updateUser, { new: true });
   }
 
   delete(_id) {

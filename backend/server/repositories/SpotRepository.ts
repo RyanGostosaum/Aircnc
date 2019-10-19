@@ -7,16 +7,8 @@ class SpotRepository {
     private session;
 
     constructor() {
-        this.model = mongoose.model('', SpotSchema);
-        this.session = mongoose.model('Session', SessionSchema)
-    }
-
-    getAll() {
-        return this.model.find({});
-    }
-
-    getById(_id) {
-        return this.model.findById(_id);
+        this.model = mongoose.model('Spot', SpotSchema);
+        this.session = mongoose.model('Session', SessionSchema);
     }
 
     async create(req) {
@@ -24,7 +16,7 @@ class SpotRepository {
         const { filename } = req.file;
         const { user_id } = req.headers;
 
-        const user = await this.session.findById(user_id)
+        const user = await this.session.findById(user_id);
 
         if (!user) {
             return 'user not found'

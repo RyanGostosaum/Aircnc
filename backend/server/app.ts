@@ -2,6 +2,7 @@ import * as express from "express";
 import * as morgan from "morgan";
 import DataBase from './config/db';
 import * as cors from "cors";
+import { resolve } from "path"
 import { createServer, Server } from 'http';
 
 import { Routes } from "./routes/routes";
@@ -25,7 +26,6 @@ class App {
 
   enableCors() {
     const options: cors.CorsOptions = {
-      allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
       credentials: true,
       methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
       origin: '*',
@@ -33,10 +33,6 @@ class App {
     };
 
     this.app.use(cors(options));
-  }
-
-  sockets() {
-
   }
 
   dataBaseConnection() {
@@ -50,6 +46,7 @@ class App {
   middleware() {
     this.app.use(morgan("dev"));
     this.app.use(express.json());
+    this.app.use("/files", express.static(resolve(__dirname, '..', 'uploads')))
   }
 }
 export default new App();

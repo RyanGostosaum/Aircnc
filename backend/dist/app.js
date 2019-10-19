@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const db_1 = require("./config/db");
 const cors = require("cors");
+const path_1 = require("path");
 const routes_1 = require("./routes/routes");
 class App {
     constructor() {
@@ -17,15 +18,12 @@ class App {
     }
     enableCors() {
         const options = {
-            allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
             credentials: true,
             methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
             origin: '*',
             preflightContinue: false
         };
         this.app.use(cors(options));
-    }
-    sockets() {
     }
     dataBaseConnection() {
         this.database.createConnection();
@@ -36,6 +34,7 @@ class App {
     middleware() {
         this.app.use(morgan("dev"));
         this.app.use(express.json());
+        this.app.use("/files", express.static(path_1.resolve(__dirname, '..', 'uploads')));
     }
 }
 exports.default = new App();
