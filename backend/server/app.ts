@@ -10,7 +10,6 @@ import { Routes } from "./routes/routes";
 class App {
   public app: express.Application;
   private morgan: morgan.Morgan;
-  private bodyParser;
   private database: DataBase;
   private server: Server
   public routes: Routes = new Routes();

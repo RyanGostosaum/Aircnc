@@ -19,6 +19,7 @@ class SpotRepository {
     }
     create(req) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('[SPOT CONTROLLER]: creating spot');
             const { price, techs, company } = req.body;
             const { filename } = req.file;
             const { user_id } = req.headers;

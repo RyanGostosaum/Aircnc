@@ -12,6 +12,11 @@ app_1.default.app.use((req, res, next) => {
     req.connectedUsers = connectedUsers;
     return next();
 });
+io.on('connection', socket => {
+    const { user_id } = socket.handshake.query;
+    console.log('[SOCKET CONTROLLER]: a user is connected:', user_id);
+    connectedUsers[user_id] = socket.id;
+});
 http.listen(configs_1.appConfig.port, () => {
     console.log(`server running in" + ${configs_1.appConfig.port}`);
 });
