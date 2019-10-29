@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, AsyncStorage, KeyboardAvoidingView, Platform, Image, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-
 import api from '../services/api';
 
 export default function Login({ navigation }) {
@@ -16,10 +15,10 @@ export default function Login({ navigation }) {
     }, []);
 
     async function handleSubmit() {
+
         const response = await api.post('/sessions', {
             email
         })
-
         const { _id } = response.data;
 
         await AsyncStorage.setItem('user', _id);
