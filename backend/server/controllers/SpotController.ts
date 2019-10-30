@@ -16,6 +16,12 @@ class SpotController {
             .catch(err => console.error.bind(console, `Error ${err}`))
     }
 
+    index(req, res) {
+        SpotRepository.all(req.query)
+            .then(menus => sendReponse(res, httpStatus.OK, menus))
+            .catch(err => console.error.bind(console, `Error: ${err}`))
+    }
+
 }
 
 export default new SpotController();

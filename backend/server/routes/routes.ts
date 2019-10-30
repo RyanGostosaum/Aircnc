@@ -20,5 +20,6 @@ export class Routes {
 
         app.get("/dashboard", DashboardController.get)
         app.post("/spots", uploads.single('thumbnail'), SpotController.create)
+        app.get("/spots", SpotController.index)
     }
 }

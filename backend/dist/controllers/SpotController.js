@@ -13,5 +13,10 @@ class SpotController {
             .then(menus => sendReponse(res, httpStatus.OK, menus))
             .catch(err => console.error.bind(console, `Error ${err}`));
     }
+    index(req, res) {
+        SpotRepository_1.default.all(req.query)
+            .then(menus => sendReponse(res, httpStatus.OK, menus))
+            .catch(err => console.error.bind(console, `Error: ${err}`));
+    }
 }
 exports.default = new SpotController();

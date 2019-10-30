@@ -44,5 +44,12 @@ class SpotRepository {
     delete(_id) {
         return this.model.findByIdAndRemove(_id);
     }
+    all(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { tech } = query;
+            const spots = yield this.model.find({ techs: tech });
+            return spots;
+        });
+    }
 }
 exports.default = new SpotRepository;

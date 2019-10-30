@@ -45,6 +45,13 @@ class SpotRepository {
         return this.model.findByIdAndRemove(_id);
     }
 
+    async all(query) {
+        const { tech } = query
+
+        const spots = await this.model.find({ techs: tech })
+
+        return spots
+    }
 }
 
 
