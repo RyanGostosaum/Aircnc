@@ -16,6 +16,6 @@ const SpotSchema = new mongoose.Schema({
     }
 });
 SpotSchema.virtual('thumbnail_url').get(function () {
-    return `http://localhost:8080/files/${this.thumbnail}`;
+    return `http://192.168.0.114:8080/files/${this.thumbnail}`;
 });
 exports.default = SpotSchema;
