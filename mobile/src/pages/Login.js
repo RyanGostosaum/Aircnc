@@ -9,7 +9,7 @@ export default function Login({ navigation }) {
     useEffect(() => {
         AsyncStorage.getItem('user').then(user => {
             if (user) {
-                navigation.navigate('List');
+                navigation.navigate('App');
             }
         })
     }, []);
@@ -23,8 +23,9 @@ export default function Login({ navigation }) {
 
         await AsyncStorage.setItem('user', _id);
         await AsyncStorage.setItem('techs', techs);
-
-        navigation.navigate('List');
+        const parent = navigation.dangerouslyGetParent();
+        console.log(parent);
+        navigation.navigate('App');
     }
 
     return (
