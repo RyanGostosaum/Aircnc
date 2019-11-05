@@ -26,7 +26,7 @@ export default function Login({ history }) {
                 Ofereça <strong>spots</strong>  para programadores e encontre  <strong>talentos</strong>  para sua empresa
             </p>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email *</label>
+                <label htmlFor="email">Email</label>
                 <input
                     type="email"
                     id="email"
