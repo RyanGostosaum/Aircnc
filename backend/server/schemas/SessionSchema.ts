@@ -1,7 +1,14 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from 'mongoose' 
 
-const SessionSchema = new mongoose.Schema({
-  email: String
+const SessionSchema: mongoose.Schema = new mongoose.Schema({
+  email: {
+    type: String, 
+    required: true
+  }, 
+  password: {
+    type: String, 
+    required: true
+  }
 });
 
 export default SessionSchema;

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import api from '../../service/api';
 
 export default function Login({ history }) {
-    const [email, setEmail] = useState('');
+    const [inputs, setInputs] = useState({})
 
     async function handleSubmit(event) {
         event.preventDefault();
-
-        const response = await api.post('/sessions', { email })
+        
+        const response = await api.post('/sessions', { inputs })
 
         const { _id } = response.data;
 
@@ -16,8 +16,9 @@ export default function Login({ history }) {
         history.push('/dashboard');
     }
 
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
+    const handleInputChange = (event) => {
+        event.persist();
+        setInputs(inputs => ({ ...inputs, [event.target.id]: event.target.value }));
     }
 
     return (
@@ -31,8 +32,17 @@ export default function Login({ history }) {
                     type="email"
                     id="email"
                     placeholder="Seu melhor email"
-                    value={email}
-                    onChange={handleEmailChange}
+                    value={inputs.email}
+                    onChange={handleInputChange}
+                />
+                <label htmlFor="password">Senha</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Senha"
+                    value={inputs.password}
+                    onChange={handleInputChange}
 
                 />
                 <button className="btn" type="submit" >Entrar</button>

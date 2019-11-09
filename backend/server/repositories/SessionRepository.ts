@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import SessionSchema from '../schemas/SessionSchema';
+import {hash} from 'bcrypt';
 
 class SessionRepository {
   private model;
@@ -15,10 +16,17 @@ class SessionRepository {
   async create(user) {
     console.log('[SESSION CONTROLLER]: creating session');
 
-    const { email } = user
+    const { email, password } = user
+
     let userExists = await this.model.findOne({ 'email': email })
     if (!userExists) {
-      return this.model.create(user)
+      let crypto: string = await hash(password, 10)
+
+      user.password = crypto
+
+      console.log(user);
+      
+      // return this.model.create(user)
     }
   }
 

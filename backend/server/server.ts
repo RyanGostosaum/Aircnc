@@ -11,7 +11,7 @@ let http = new Server(App.app);
 
 let io = socketio(http);
 
-App.app.use((req, res, next) => {
+App.app.use((req, res, next) => { 
   req.io = io;
   req.connectedUsers = connectedUsers;
   return next();
