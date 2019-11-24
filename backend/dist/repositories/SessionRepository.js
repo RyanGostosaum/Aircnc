@@ -41,12 +41,12 @@ class SessionRepository {
     login(user) {
         return __awaiter(this, void 0, void 0, function* () {
             let { email, password } = user;
-            let userExist = yield this.model.find({ 'email': email });
-            if (userExist != null) {
-                let passwordCheck = yield bcrypt.compare(password, userExist.password);
-                if (passwordCheck) {
-                    let token = auth_1.default.create(userExist);
-                    return { userExist, token };
+            let userResponse = yield this.model.findOne({ 'email': email });
+            if (userResponse !== null) {
+                let passwordCheck = yield bcrypt.compare(password, userResponse.password);
+                if (passwordCheck === true) {
+                    let token = yield auth_1.default.create(userResponse);
+                    return { user: userResponse, token };
                 }
                 else {
                     return { message: "Incorrect password", success: false };

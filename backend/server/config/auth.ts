@@ -30,8 +30,9 @@ class Auth {
         }
     }
 
-    create(data) {
-        jwt.sign(data, appConfig.secret, {expiresIn: '100h'})
+    async create(data) {
+        let token = await jwt.sign({data}, appConfig.secret, { expiresIn: '100h' });        
+        return token
     }
 }
 

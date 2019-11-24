@@ -10,11 +10,13 @@ export default function Login({ history }) {
 
     const response = await api.post("/login", inputs);
 
-    const { _id } = response.data;
+    const { token } = response.data;
 
-    localStorage.setItem("user", _id);
+    if (token) {
+      localStorage.setItem("token", token);
 
-    history.push("/dashboard");
+      history.push("/dashboard");
+    }
   }
 
   const handleInputChange = event => {

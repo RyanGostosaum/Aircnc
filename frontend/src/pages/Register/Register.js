@@ -7,11 +7,10 @@ export default function Register({ history }) {
     async function handleSubmit(event) {
         event.preventDefault();
         
+        //eslint-disable-next-line
         const response = await api.post('/sessions', inputs)
         
-        const { _id } = response.data;
-
-        history.push('/dashboard');
+        history.push('/');
     }
 
     const handleInputChange = (event) => {

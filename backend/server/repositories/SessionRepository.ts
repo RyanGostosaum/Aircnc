@@ -38,22 +38,20 @@ class SessionRepository {
   }
 
   async login(user) {
-    let { email, password } = user
-    let userExist = await this.model.find({ 'email': email })
+    let { email, password } = user;
 
-    if (userExist != null) {
-      let passwordCheck = await bcrypt.compare(password, userExist.password);
+    let userResponse = await this.model.findOne({ 'email': email })
 
-      if (passwordCheck) {
-        let token = Auth.create(userExist)
-
-        return { userExist, token }
+    if (userResponse !== null) {
+      let passwordCheck = await bcrypt.compare(password, userResponse.password);
+      if (passwordCheck === true) {
+        let token = await Auth.create(userResponse);
+        return {user: userResponse, token} 
       } else {
         return { message: "Incorrect password", success: false }
       }
     } else {
       return { message: "User not found", success: false }
-
     }
   }
 }
