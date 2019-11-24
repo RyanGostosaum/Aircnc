@@ -47,7 +47,7 @@ class SpotRepository {
     all(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const { tech } = query;
-            const spots = yield this.model.find({ techs: tech });
+            const spots = yield this.model.find({});
             return spots;
         });
     }

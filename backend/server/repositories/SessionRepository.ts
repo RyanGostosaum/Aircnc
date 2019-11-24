@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
 import SessionSchema from '../schemas/SessionSchema';
+import * as bcrypt from 'bcryptjs'
+import Auth from "../config/auth";
 
 class SessionRepository {
   private model;
@@ -15,14 +17,45 @@ class SessionRepository {
   async create(user) {
     console.log('[SESSION CONTROLLER]: creating session');
 
-    const { email, password } = user
+    let { email, password } = user
 
+    const userExist = await this.model.findOne({ 'email': email })
+
+    if (userExist === null) {
+      let hash = await bcrypt.hash(password, 8)
+
+      user.password = hash
+
+      return this.model.create(user);
+
+    } else {
+      return { message: 'Email is already in use', success: false }
+    }
   }
 
   delete(_id) {
     return this.model.findByIdAndRemove(_id);
   }
 
+  async login(user) {
+    let { email, password } = user
+    let userExist = await this.model.find({ 'email': email })
+
+    if (userExist != null) {
+      let passwordCheck = await bcrypt.compare(password, userExist.password);
+
+      if (passwordCheck) {
+        let token = Auth.create(userExist)
+
+        return { userExist, token }
+      } else {
+        return { message: "Incorrect password", success: false }
+      }
+    } else {
+      return { message: "User not found", success: false }
+
+    }
+  }
 }
 
 

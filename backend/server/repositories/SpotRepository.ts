@@ -48,7 +48,7 @@ class SpotRepository {
     async all(query) {
         const { tech } = query
 
-        const spots = await this.model.find({ techs: tech })
+        const spots = await this.model.find({})
 
         return spots
     }

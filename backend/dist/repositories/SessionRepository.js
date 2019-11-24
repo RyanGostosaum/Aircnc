@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const SessionSchema_1 = require("../schemas/SessionSchema");
+const bcrypt = require("bcryptjs");
+const auth_1 = require("../config/auth");
 class SessionRepository {
     constructor() {
         this.model = mongoose.model('Session', SessionSchema_1.default);
@@ -21,11 +23,39 @@ class SessionRepository {
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('[SESSION CONTROLLER]: creating session');
-            const { email, password } = user;
+            let { email, password } = user;
+            const userExist = yield this.model.findOne({ 'email': email });
+            if (userExist === null) {
+                let hash = yield bcrypt.hash(password, 8);
+                user.password = hash;
+                return this.model.create(user);
+            }
+            else {
+                return { message: 'Email is already in use', success: false };
+            }
         });
     }
     delete(_id) {
         return this.model.findByIdAndRemove(_id);
+    }
+    login(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { email, password } = user;
+            let userExist = yield this.model.find({ 'email': email });
+            if (userExist != null) {
+                let passwordCheck = yield bcrypt.compare(password, userExist.password);
+                if (passwordCheck) {
+                    let token = auth_1.default.create(userExist);
+                    return { userExist, token };
+                }
+                else {
+                    return { message: "Incorrect password", success: false };
+                }
+            }
+            else {
+                return { message: "User not found", success: false };
+            }
+        });
     }
 }
 exports.default = new SessionRepository;

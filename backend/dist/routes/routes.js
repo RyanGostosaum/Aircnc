@@ -13,6 +13,8 @@ class Routes {
         app.route("/sessions")
             .get(auth_1.default.validate, SessionController_1.default.get)
             .post(SessionController_1.default.create);
+        app.route("/login")
+            .post(SessionController_1.default.login);
         app.get("/dashboard", DashboardController_1.default.get);
         app.post("/spots", uploads_1.default.single('thumbnail'), SpotController_1.default.create);
         app.get("/spots", SpotController_1.default.index);

@@ -34,7 +34,12 @@ class SessionController {
       .then(user => sendReponse(res, httpStatus.OK, `User  ${user.name} deleted with success!`))
       .catch(err => console.error.bind(console, `Error ${err}`));
   }
-
+  login(req, res) {
+    SessionRepository
+      .login(req.body)
+      .then(menus => sendReponse(res, httpStatus.OK, menus))
+      .catch(err => console.error.bind(console, `Error ${err}`))
+  }
 }
 
 export default new SessionController();

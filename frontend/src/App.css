@@ -92,3 +92,8 @@ button {
 .content button.btn:hover {
   background: #e14f50;
 }
+
+.content a { 
+  text-decoration: none;
+  color: #f05a5b;
+}

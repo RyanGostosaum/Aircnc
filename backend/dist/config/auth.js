@@ -25,5 +25,8 @@ class Auth {
             });
         }
     }
+    create(data) {
+        jwt.sign(data, configs_1.appConfig.secret, { expiresIn: '100h' });
+    }
 }
 exports.default = new Auth;

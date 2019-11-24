@@ -1,53 +1,55 @@
 import React, { useState } from "react";
-import api from '../../service/api';
+import api from "../../service/api";
+import { Link } from "react-router-dom";
 
 export default function Login({ history }) {
-    const [inputs, setInputs] = useState({})
+  const [inputs, setInputs] = useState({});
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        
-        const response = await api.post('/sessions', { inputs })
+  async function handleSubmit(event) {
+    event.preventDefault();
 
-        const { _id } = response.data;
+    const response = await api.post("/login", inputs);
 
-        localStorage.setItem('user', _id);
+    const { _id } = response.data;
 
-        history.push('/dashboard');
-    }
+    localStorage.setItem("user", _id);
 
-    const handleInputChange = (event) => {
-        event.persist();
-        setInputs(inputs => ({ ...inputs, [event.target.id]: event.target.value }));
-    }
+    history.push("/dashboard");
+  }
 
-    return (
-        <>
-            <p>
-                Ofereça <strong>spots</strong>  para programadores e encontre  <strong>talentos</strong>  para sua empresa
-            </p>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Seu melhor email"
-                    value={inputs.email}
-                    onChange={handleInputChange}
-                />
-                <label htmlFor="password">Senha</label>
+  const handleInputChange = event => {
+    event.persist();
+    setInputs(inputs => ({ ...inputs, [event.target.id]: event.target.value }));
+  };
 
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Senha"
-                    value={inputs.password}
-                    onChange={handleInputChange}
+  return (
+    <>
+      <p>
+        Entre com seu <strong>email</strong> e <strong>senha</strong>.
+      </p>
+      <p>
+        Ainda não está cadastrado? clique <Link to="/register">aqui</Link>.
+      </p>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          value={inputs.email}
+          onChange={handleInputChange}
+        />
+        <label htmlFor="password">Senha</label>
 
-                />
-                <button className="btn" type="submit" >Entrar</button>
-            </form>
-        </>
-
-    );
+        <input
+          type="password"
+          id="password"
+          value={inputs.password}
+          onChange={handleInputChange}
+        />
+        <button className="btn" type="submit">
+          Entrar
+        </button>
+      </form>
+    </>
+  );
 }

@@ -18,6 +18,9 @@ export class Routes {
             .get(Auth.validate, SessionController.get)
             .post(SessionController.create);
 
+        app.route("/login")
+            .post(SessionController.login)
+
         app.get("/dashboard", DashboardController.get)
         app.post("/spots", uploads.single('thumbnail'), SpotController.create)
         app.get("/spots", SpotController.index)
