@@ -3,8 +3,8 @@
   <a href="https://www.npmjs.com/package/backend" target="_blank">
     <img alt="Version" src="https://img.shields.io/npm/v/backend.svg">
   </a>
-  <a href="https://twitter.com/RyanGostosaum" target="_blank">
-    <img alt="Twitter: RyanGostosaum" src="https://img.shields.io/twitter/follow/RyanGostosaum.svg?style=social" />
+  <a href="https://twitter.com/RyanGst" target="_blank">
+    <img alt="Twitter: RyanGst" src="https://img.shields.io/twitter/follow/RyanGostosaum.svg?style=social" />
   </a>
 </p>
 
